@@ -4,7 +4,7 @@ Author: skyfighteer
 License: MIT  
 
 ## Description:
-This library is intended to help you in handling the options page of your extension. It does everything you need automatically, so you don't have to debug the Chrome Storage API for hours + you can focus on the more important things. It works completely automatically, you do not have to do anything other than the initial setup, which is just copying in 2 files.
+This library is intended to take care of everything related to the Chrome Storage API automatically, so you can focus on the more important things. It works completely automatically, you do not have to do anything other than the initial setup, which you can find below under "STEPS".
 
 ## Prerequisites:
 This library is completely standalone, it only requires an extension using Manifest V3.  
