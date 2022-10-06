@@ -1,10 +1,11 @@
-# AutoOptions - Chrome Storage API Helper (Save Extension Preferences Automatically)
+# AutoOptions - Chrome Storage API Helper
+# Save Extension Preferences Automatically
 Version: 0.1  
 Author: skyfighteer  
 License: MIT  
 
 ## Description:
-This library is intended to take care of everything related to the Chrome Storage API automatically, so you can focus on the more important things. It works completely automatically, you do not have to do anything other than the initial setup.
+This library is intended to take care of everything related to the Chrome Storage API, so you can focus on the more important things. It works completely automatically, you do not have to do anything other than the initial setup.
 
 ## Prerequisites:
 This library is completely standalone, it only requires an extension using Manifest V3.  
