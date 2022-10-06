@@ -1,5 +1,4 @@
-# AutoOptions - Chrome Storage API Helper
-# Save Extension Preferences Automatically
+# AutoOptions - Chrome Storage API Helper - Save Extension Preferences Automatically!
 Version: 0.1  
 Author: skyfighteer  
 License: MIT  
