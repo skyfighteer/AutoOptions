@@ -19,6 +19,15 @@ function loadConfig() {
     });
 };
 
+function getInput() {
+    input = Array.from(document.querySelectorAll('input')).filter(isSaved); // note: filtering empty arrays is possible
+    // validate
+    if (input.length === 0) throw new Error('AutoOptions Error: No supported inputs were found in the document.');
+    else {
+        if (!input.every(hasId)) throw new Error('AutoOptions Error: There are supported inputs without an ID.');
+    };
+}
+
 function saveConfig() {
     sendToAllTab(); // does not have to finish on first load, already opened pages don't have listeners set up
     return chrome.storage.sync.set({'configuration': configuration});
@@ -86,17 +95,9 @@ function resetElement(element) {
 
 // ---------------- Helper ----------------
 
-function getInput() {
-    input = Array.from(document.querySelectorAll('input')).filter(isSaved); // note: filtering empty arrays is possible
-    // validate
-    if (input.length === 0) throw new Error('AutoOptions Error: No supported inputs were found in the document.');
-    else {
-        if (!input.every(hasId)) throw new Error('AutoOptions Error: There are supported inputs without an ID.');
-    };
-    function hasId(el) {
-        return el.hasAttribute('id');
-    };
-}
+function hasId(el) {
+    return el.hasAttribute('id');
+};
 
 function addChangeListener() {
     input.forEach(createListeners);
