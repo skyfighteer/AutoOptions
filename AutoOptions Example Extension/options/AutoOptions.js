@@ -9,7 +9,8 @@ window.addEventListener('load', ()=> {
 
 function loadConfig() {
     chrome.storage.sync.get(['configuration']).then((storedConfiguration) => {
-        if (Object.keys(storedConfiguration).length > 0) { // if there is a stored configuration
+        console.log('configuration' in storedConfiguration)
+        if ('configuration' in storedConfiguration) { // if there is a stored configuration
             configuration = storedConfiguration.configuration;
             input.forEach(setUI);
         } else {
