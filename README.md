@@ -23,6 +23,6 @@ Please look at the example extension if something is unclear.
 
 # STEPS:
 1. Make sure you understand the prerequisites.
-2. Include the code from "background.js" in your background page.
+2. Include the code from "background.js" in your background page, and the code from "content-script.js" in your content script.
 3. Copy the "AutoOptions.js" into your extensions' folder. Add a script tag to your options page with the "src" attribute set to the path to "AutoOptions.js".
 4. If your extension is already installed, please reinstall it for this library to work properly.
