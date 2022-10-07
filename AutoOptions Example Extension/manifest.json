@@ -1,0 +1,32 @@
+{
+    "name": "An example extension for AutoOptions (popup)",
+    "description": "This extension showcases how to use AutoOptions in a real extension.",
+    "author": "skyfighteer",
+    "version": "0.1",
+    "manifest_version": 3,
+    "permissions": [
+      "storage"
+  ],
+    "icons":
+    {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "action": {
+      "default_icon": {               
+        "16": "icons/icon16.png"  
+      },
+      "default_title": "AutoOptions Example",
+      "default_popup": "options/options.html"
+    },
+    "content_scripts": [
+      {
+        "js": ["content-script.js"],
+        "matches": ["https://www.google.com/*"]
+      }
+    ],
+    "background": {
+      "service_worker": "background.js"
+    }
+}

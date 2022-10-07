@@ -1,0 +1,35 @@
+html, body {
+    height: min-content;
+}
+
+ol, p {
+    margin: 0;
+    padding: 0;
+}
+
+ol p {
+    font-size: larger;
+    margin-left: 5px;
+}
+
+li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+header {
+    font-size: large;
+    font-weight: bolder;
+}
+
+#info {
+    font-size: small;
+}
+
+#reset {
+    font-size: large;
+    color: blue;
+    user-select: none;
+    width: max-content;
+}

@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="options.css">
+    </head>
+
+    <body>
+        <header>Radio Buttons</header>
+        <ol>
+            <li>
+                <input type="radio" name="radioButton" id="radioFirst">
+                <p>Radio First</p>
+            </li>
+            <li>
+                <input type="radio" name="radioButton" id="radioSecond">
+                <p>Radio Second</p>
+            </li>
+            <li>
+                <input type="radio" name="radioButton" id="radioThird" checked>
+                <p>Radio Third</p>
+            </li>
+        </ol>
+
+        <header>Checkboxes</header>
+        <ol>
+            <li>
+                <input id="checkboxExample" type="checkbox">
+                <p>Checkbox Example</p>
+            </li>
+            <li>
+                <input id="checkedByDefault" type="checkbox" checked>
+                <p>Checked By Default</p>
+            </li>
+        </ol>
+
+        <header>Value</header>
+        <ol>
+            <li>
+                <input id="colorInput" type="color" value="#EEEEEE">
+                <p>Color (This one actually works! Open "google.com" and see what happens!)</p>
+            </li>
+            <li>
+                <input id="numberInput" type="number">
+                <p>Number</p>
+            </li>
+        </ol>
+        <i id="info">Input types like these ones will not get saved by design:</i>
+        <ol>
+            <li>
+                <input id="searchBar" type="search">
+                <p>Search bar</p>
+            </li>
+            <li>
+                <input id="passwordField" type="password">
+                <p>Password Field</p>
+            </li>
+        </ol>
+
+        <br>
+        <p id="reset">Reset to default!</div>
+        <p>The reset button is optional to include.</p>
+        <p>What happens after clicking on "Reset to default!" is handled by "options.js"! Feel free to play around with the code!</p>
+
+        <script src="AutoOptions.js"></script>
+        <script src="options.js"></script>
+    </body>
+</html>
