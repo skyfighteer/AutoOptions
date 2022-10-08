@@ -29,7 +29,6 @@ function getInput() {
 }
 
 function saveConfig() {
-    console.log(configuration)
     sendToAllTab(); // does not have to finish on first load, already opened pages don't have listeners set up
     return chrome.storage.sync.set({'configuration': configuration});
 }
