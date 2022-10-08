@@ -29,6 +29,7 @@ function getInput() {
 }
 
 function saveConfig() {
+    console.log(configuration)
     sendToAllTab(); // does not have to finish on first load, already opened pages don't have listeners set up
     return chrome.storage.sync.set({'configuration': configuration});
 }
@@ -53,42 +54,54 @@ function sendToCurrentTab(){
 
 // ---------------- For Each ----------------
 
-function createListeners(element) {
-    element.addEventListener('change', function() {
+function createListeners(el) {
+    el.addEventListener('change', function() {
         input.forEach(updateConfig);
         saveConfig();
     })
 }
 
-function updateConfig(element) {
-    if (isChecked(element)) {
-        configuration[element.id] = element.checked;
-    } else {
-        configuration[element.id] = element.value;
+function updateConfig(el) {
+    if (isBoolean(el)) { // checkbox / radio
+        if (hasName(el)) { // radio
+            if (isChecked(el)) { // find the one that is checked
+                configuration[el.name] = el.id;
+            };
+        } else { // checkbox
+            configuration[el.id] = el.checked; // true / false
+        };
+    } else { // all other supported inputs
+        configuration[el.id] = el.value; // '' / value
     };
 };
 
-function setUI(element) {
-    if (isChecked(element)) {
-        element.checked = configuration[element.id];
-    } else {
-        element.value = configuration[element.id];
-    };
-};
-
-function resetElement(element) {
-    if (isChecked(element)) {
-        if (element.hasAttribute('checked')){
-            element.checked = true;
+function setUI(el) {
+    if (isBoolean(el)) { // checkbox / radio
+        if (hasName(el)) { // radio
+            if (configuration[el.name] === el.id) {
+                el.checked = true;
+            };
         } else {
-            element.checked = false;
+            el.checked = configuration[el.id];
+        }
+    } else {
+        el.value = configuration[el.id];
+    };
+};
+
+function resetElement(el) {
+    if (isBoolean(el)) {
+        if (isCheckedByDefault(el)){
+            el.checked = true;
+        } else {
+            el.checked = false;
         };
     }
     else {
-        if (element.hasAttribute('value')) {
-            element.value = element.getAttribute('value');
+        if (hasValueByDefault(el)) {
+            el.value = el.getAttribute('value');
         } else {
-            element.value = '';
+            el.value = '';
         };
     };
 };
@@ -98,6 +111,22 @@ function resetElement(element) {
 function hasId(el) {
     return el.hasAttribute('id');
 };
+
+function hasName(el) {
+    return el.hasAttribute('name');
+};
+
+function hasValueByDefault(el) {
+    return el.hasAttribute('value');
+}
+
+function isCheckedByDefault(el) {
+    return el.hasAttribute('checked');
+}
+
+function isChecked(el) {
+    return el.checked === true;
+}
 
 function addChangeListener() {
     input.forEach(createListeners);
@@ -118,15 +147,15 @@ function reset() {
     saveConfig();
 }
 
-function isChecked(element) {
+function isBoolean(el) {
     const checked = [
         'checkbox',
         'radio'
     ];
-    return checked.includes(element.type);
+    return checked.includes(el.type);
 }
 
-function isSaved(element) {
+function isSaved(el) {
     const notSaved = [
         'button',
         'file',
@@ -137,5 +166,5 @@ function isSaved(element) {
         'search',
         'submit'
     ];
-    return !notSaved.includes(element.type);
+    return !notSaved.includes(el.type);
 }
