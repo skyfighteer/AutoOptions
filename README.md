@@ -14,7 +14,7 @@ Please look at the example extension if something is unclear.
 
 ## Important:
 1. The first time install of the extension might result in a short, bright flash and a jump to another tab. It is completely normal, and will never happen afterwards.
-2. All saved inputs must have a unique ID.
+2. All saved inputs must have a unique ID. One of the inputs from a radio group must have the "checked" attribute by default.
 3. These input types will not be saved: *button, file, hidden, image , reset, password, search, submit*.
 4. If you'd like an input to have a default value, use the "checked" and "value" attributes in HTML.
 5. If you'd like to include a reset button, create any clickable DOM element with the ID "reset".
