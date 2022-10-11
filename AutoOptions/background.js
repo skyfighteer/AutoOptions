@@ -5,9 +5,7 @@ chrome.runtime.onInstalled.addListener((details) => {
     if (options) optionsPage = options.page;
     else if (popup) optionsPage = popup.default_popup;
     else throw new Error("AutoOptions Error: There is no options page declared in the Manifest file.");
-    if (details.reason === "install") {
-        createOptionsTab();
-    };
+    if (details.reason === "install") createOptionsTab();
 });
 
 chrome.runtime.onMessage.addListener((message)=> {
