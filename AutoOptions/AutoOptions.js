@@ -26,25 +26,25 @@ function getInput() {
     else {
         if (!input.every(hasId)) throw new Error('AutoOptions Error: There are supported inputs without an ID.');
     };
-}
+};
 
-function saveConfig() {
-    sendToAllTab(); // does not have to finish on first load, already opened pages don't have listeners set up
-    return chrome.storage.sync.set({'configuration': configuration});
-}
+async function saveConfig() {
+    await sendToAllTab();
+    await chrome.storage.sync.set({'configuration': configuration});
+};
 
 function sendToAllTab(){
-    chrome.tabs.query({}).then((tabs) => {
+    return chrome.tabs.query({}).then((tabs) => {
         tabs.forEach((tab) => {
             chrome.tabs.sendMessage(tab.id,{"configuration": configuration}).catch(() => {
                 // error handling for unreachable websites
             });
-        })
+        });
     });
 };
 
 function sendToCurrentTab(){
-    chrome.tabs.query({active: true, lastFocusedWindow: true}).then((tabs) => {
+    return chrome.tabs.query({active: true, lastFocusedWindow: true}).then((tabs) => {
         chrome.tabs.sendMessage(tabs[0].id,{"configuration": configuration}).catch(() => {
             // error handling for unreachable websites
         });
@@ -57,8 +57,8 @@ function createListeners(el) {
     el.addEventListener('change', function() {
         input.forEach(updateConfig);
         saveConfig();
-    })
-}
+    });;
+};
 
 function updateConfig(el) {
     if (isBoolean(el)) { // checkbox / radio
@@ -117,19 +117,19 @@ function hasName(el) {
 
 function hasValueByDefault(el) {
     return el.hasAttribute('value');
-}
+};
 
 function isCheckedByDefault(el) {
     return el.hasAttribute('checked');
-}
+};
 
 function isChecked(el) {
     return el.checked === true;
-}
+};;
 
 function addChangeListener() {
     input.forEach(createListeners);
-}
+};
 
 function addResetFunction() {
     const resetButton = document.getElementById('reset');
@@ -144,7 +144,7 @@ function reset() {
     input.forEach(resetElement);
     input.forEach(updateConfig);
     saveConfig();
-}
+};
 
 function isBoolean(el) {
     const checked = [
@@ -152,7 +152,7 @@ function isBoolean(el) {
         'radio'
     ];
     return checked.includes(el.type);
-}
+};;
 
 function isSaved(el) {
     const notSaved = [
@@ -166,4 +166,4 @@ function isSaved(el) {
         'submit'
     ];
     return !notSaved.includes(el.type);
-}
+};
