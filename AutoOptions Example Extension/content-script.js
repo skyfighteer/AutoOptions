@@ -5,7 +5,7 @@ window.onload = function() {
 let configuration;
 function loadOptions() {
     chrome.storage.sync.get(['configuration'], function(storedConfiguration) {
-      if (Object.keys(storedConfiguration).length > 0) {
+      if ('configuration' in storedConfiguration) {
         configuration = storedConfiguration.configuration;
         setOptions();
       } else {
