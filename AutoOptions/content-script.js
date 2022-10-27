@@ -1,6 +1,6 @@
 let configuration;
 chrome.storage.sync.get(['configuration'], function(storedConfiguration) {
-  if (Object.keys(storedConfiguration).length > 0) {
+  if ('configuration' in storedConfiguration) {
     configuration = storedConfiguration.configuration;
   } else {
     chrome.runtime.sendMessage("openOptions");
