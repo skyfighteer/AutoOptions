@@ -89,20 +89,8 @@ function setUI(el) {
 };
 
 function resetElement(el) {
-    if (isBoolean(el)) {
-        if (isCheckedByDefault(el)){
-            el.checked = true;
-        } else {
-            el.checked = false;
-        };
-    }
-    else {
-        if (hasValueByDefault(el)) {
-            el.value = el.getAttribute('value');
-        } else {
-            el.value = '';
-        };
-    };
+    if (isBoolean(el)) isCheckedByDefault(el) ? el.checked = true : el.checked = false;
+    else hasValueByDefault(el) ? el.value = el.getAttribute('value') : el.value = '';
 };
 
 // ---------------- Helper ----------------
