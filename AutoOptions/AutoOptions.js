@@ -14,7 +14,7 @@ function loadConfig() {
             input.forEach(setUI);
         } else {
             input.forEach(updateConfig); // create the default object for the first time
-            saveConfig().then(() => window.close());
+            saveConfig().then(() => window.close()); // close tab after saving the config
         };
     });
 };
@@ -23,13 +23,11 @@ function getInput() {
     input = Array.from(document.querySelectorAll('input')).filter(isSaved); // note: filtering empty arrays is possible
     // validate
     if (input.length === 0) throw new Error('AutoOptions Error: No supported inputs were found in the document.');
-    else {
-        if (!input.every(hasId)) throw new Error('AutoOptions Error: There are supported inputs without an ID.');
-    };
+    else if (!input.every(hasId)) throw new Error('AutoOptions Error: There are supported inputs without an ID.');
 };
 
 async function saveConfig() {
-    await sendToAllTab();
+    await sendToAllTab(); // optional
     await chrome.storage.sync.set({'configuration': configuration});
 };
 
@@ -62,30 +60,16 @@ function createListeners(el) {
 
 function updateConfig(el) {
     if (isBoolean(el)) { // checkbox / radio
-        if (hasName(el)) { // radio
-            if (isChecked(el)) { // find the one that is checked
-                configuration[el.name] = el.id;
-            };
-        } else { // checkbox
-            configuration[el.id] = el.checked; // true / false
-        };
-    } else { // all other supported inputs
-        configuration[el.id] = el.value; // '' / value
-    };
+        if (hasName(el) && isChecked(el)) configuration[el.name] = el.id; // find checked radios
+        else configuration[el.id] = el.checked; // checkbox
+    } else configuration[el.id] = el.value; // all other supported inputs
 };
 
 function setUI(el) {
     if (isBoolean(el)) { // checkbox / radio
-        if (hasName(el)) { // radio
-            if (configuration[el.name] === el.id) {
-                el.checked = true;
-            };
-        } else {
-            el.checked = configuration[el.id];
-        }
-    } else {
-        el.value = configuration[el.id];
-    };
+        if (hasName(el) && (configuration[el.name] === el.id)) el.checked = true; // find radios that should be checked
+        else el.checked = configuration[el.id]; // checkbox
+    } else el.value = configuration[el.id]; // all other supported inputs
 };
 
 function resetElement(el) {
@@ -113,7 +97,7 @@ function isCheckedByDefault(el) {
 
 function isChecked(el) {
     return el.checked === true;
-};;
+};
 
 function addChangeListener() {
     input.forEach(createListeners);
